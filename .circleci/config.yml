@@ -230,9 +230,11 @@ jobs:
             - "2a:cc:4a:00:95:43:26:eb:dd:5f:b4:bc:ab:e9:08:ee"
       - attach_workspace:
           at: ~/
-
+      
+      - install_nodejs
+      - install_awscli
       - install_ansible
-
+      
       - run:
           name: Configure server
           command: |
