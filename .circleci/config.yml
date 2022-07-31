@@ -237,20 +237,20 @@ jobs:
       - run:
           name: Install dependencies (openssh)
           command: |
-            apk add --update openssh # Install openssh and git
-            apk add --update git # Install git
+            apt add --update openssh # Install openssh and git
+            apt add --update git # Install git
       - run: 
           name: Install dependences (Nodejs and NPM) and ansible
           command: |
             wget https://nodejs.org/dist/v13.8.0/node-v13.8.0-linux-x64.tar.xz
-            apk add --update npm
-            apk add --update ansible # Install ansible
+            apt add --update npm
+            apt add --update ansible # Install ansible
       - run:
           name: Install dependencies (awscli, tar and gzip)
           command: |
-            apk --no-cache add py-pip
+            apt --no-cache add py-pip
             pip install awscli
-            apk add --update tar gzip
+            apt add --update tar gzip
 
       - run:
           name: Install Ansible
