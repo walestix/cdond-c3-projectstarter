@@ -11,8 +11,8 @@ commands:
             sudo apt install software-properties-common -y
             sudo add-apt-repository --yes --update ppa:ansible/ansible
             sudo apt install ansible -y
-            python3 -m pip install --user ansible
-            python3 -m pip install --upgrade --user ansible
+            # python3 -m pip install --user ansible
+            # python3 -m pip install --upgrade --user ansible
 
 
   destroy-environment:
@@ -233,6 +233,38 @@ jobs:
             - "2a:cc:4a:00:95:43:26:eb:dd:5f:b4:bc:ab:e9:08:ee"
       - attach_workspace:
           at: .circleci/ansible
+      
+      - run:
+          name: Install dependencies (openssh)
+          command: |
+            apk add --update openssh # Install openssh and git
+            apk add --update git # Install git
+      - run: 
+          name: Install dependences (Nodejs and NPM) and ansible
+          command: |
+            wget https://nodejs.org/dist/v13.8.0/node-v13.8.0-linux-x64.tar.xz
+            apk add --update npm
+            apk add --update ansible # Install ansible
+      - run:
+          name: Install dependencies (awscli, tar and gzip)
+          command: |
+            apk --no-cache add py-pip
+            pip install awscli
+            apk add --update tar gzip
+
+      - run:
+          name: Install Ansible
+          command: |
+            sudo apt update
+            sudo apt install software-properties-common -y
+            sudo add-apt-repository --yes --update ppa:ansible/ansible
+            sudo apt install ansible -y
+      # - run:
+      #     name: Run your playbook to configure server
+      #     command: |
+      #       cd .circleci/ansible
+      #       cat inventory.txt
+      #       ansible-playbook -i inventory.txt configure-server.yml
       
 
       
