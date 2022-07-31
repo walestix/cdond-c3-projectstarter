@@ -234,23 +234,23 @@ jobs:
       - attach_workspace:
           at: .circleci/ansible
       
-      - run:
-          name: Install dependencies (openssh)
-          command: |
-            apt add --update openssh # Install openssh and git
-            apt add --update git # Install git
-      - run: 
-          name: Install dependences (Nodejs and NPM) and ansible
-          command: |
-            wget https://nodejs.org/dist/v13.8.0/node-v13.8.0-linux-x64.tar.xz
-            apt add --update npm
-            apt add --update ansible # Install ansible
-      - run:
-          name: Install dependencies (awscli, tar and gzip)
-          command: |
-            apt --no-cache add py-pip
-            pip install awscli
-            apt add --update tar gzip
+      # - run:
+      #     name: Install dependencies (openssh)
+      #     command: |
+      #       apt add --update openssh # Install openssh and git
+      #       apt add --update git # Install git
+      # - run: 
+      #     name: Install dependences (Nodejs and NPM) and ansible
+      #     command: |
+      #       wget https://nodejs.org/dist/v13.8.0/node-v13.8.0-linux-x64.tar.xz
+      #       apt add --update npm
+      #       apt add --update ansible # Install ansible
+      # - run:
+      #     name: Install dependencies (awscli, tar and gzip)
+      #     command: |
+      #       apt --no-cache add py-pip
+      #       pip install awscli
+      #       apt add --update tar gzip
 
       - run:
           name: Install Ansible
