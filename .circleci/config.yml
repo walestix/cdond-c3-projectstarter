@@ -284,6 +284,8 @@ jobs:
       # Docker image here that supports NodeJS
     steps:
       - checkout
+      - restore_cache:
+          keys: [backend-build]
       - run:
           name: Run migrations
           command: |
