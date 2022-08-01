@@ -284,15 +284,14 @@ jobs:
       # Docker image here that supports NodeJS
     steps:
       - checkout
-      - restore_cache:
-          keys: [backend-build]
+      # - restore_cache:
+      #     keys: [backend-build]
       - run:
           name: Run migrations
           command: |
             # Your code here
             cd backend
             npm install
-            npm start
             npm run migrations > migrations_dump.txt
       - run:
           name: Send migration results to kvdb
