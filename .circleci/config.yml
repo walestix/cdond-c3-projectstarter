@@ -418,12 +418,6 @@ jobs:
       - install_awscli
 
       - run:
-          name: Get backend url
-          command: |
-            # your code here
-
-
-      - run:
           name: Backend smoke test.
           command: |
             # your code here
@@ -442,6 +436,8 @@ jobs:
             else
               return 1
             fi
+      - destroy-environment
+      - revert-migrations    
       - run:
           name: Frontend smoke test.
           command: |
