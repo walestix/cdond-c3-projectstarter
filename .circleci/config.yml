@@ -66,7 +66,7 @@ commands:
           when: on_fail
           command: |          
             # Curl command here to see if there was a successful migration associated with the workflow id, store result in SUCCESS variable
-            SUCCESS=$(curl --insecure "https://kvdb.io/GihzLn9tKaS8UmwtTTnRhb/migration_<<parameters.workflow_id>>")
+            SUCCESS=$(curl --insecure "https://kvdb.io/QTkCqEtrbTrAwS7dg5cW3E/migration_<<parameters.workflow_id>>")
             SUCCESS = 1
             if(( $SUCCESS==1 )); 
             then
@@ -436,8 +436,6 @@ jobs:
             else
               return 1
             fi
-      - destroy-environment
-      - revert-migrations    
       - run:
           name: Frontend smoke test.
           command: |
