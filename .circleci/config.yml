@@ -502,8 +502,8 @@ jobs:
           command: |
             # your code here
             export STACKS=($(aws cloudformation list-stacks \
-                --query "StackSummaries[*].StackName" \
-                --stack-status-filter CREATE_COMPLETE --no-paginate --output text))
+              --query "StackSummaries[*].StackName" \
+              --stack-status-filter CREATE_COMPLETE --no-paginate --output text))
             echo Stack names: "${STACKS[@]}"  
             export OldworkflowID=$(curl --insecure https://kvdb.io/QTkCqEtrbTrAwS7dg5cW3E/old_workflow_id)
             echo Old Workflow ID: $OldworkflowID
@@ -515,9 +515,9 @@ jobs:
             if [[ "${STACKS[@]}" =~ "${OldWorkflowID}" ]]
             then
               # your code here
-                aws s3 rm "s3://udapeople-${OldWorkflowID}" --recursive
-                aws cloudformation delete-stack --stack-name "udapeople-backend-<<parameters.workflow_id>>"
-                aws cloudformation delete-stack --stack-name "udapeople-frontend-<<parameters.workflow_id>>"
+              aws s3 rm "s3://udapeople-${OldWorkflowID}" --recursive
+              aws cloudformation delete-stack --stack-name "udapeople-backend-<<parameters.workflow_id>>"
+              aws cloudformation delete-stack --stack-name "udapeople-frontend-<<parameters.workflow_id>>"
             fi
 
         
