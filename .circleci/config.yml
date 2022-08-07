@@ -414,7 +414,6 @@ jobs:
       # Docker image here that supports AWS CLI
     steps:
       - checkout
-      - install_nodejs
       - install_awscli
 
       - run:
@@ -487,15 +486,18 @@ jobs:
 
       # Here's where you will add some code to rollback on failure  
 
-
   cleanup:
     docker:
       - image: cimg/base:stable
-      # Docker image here
+      # Docker image here that supports AWS CLI
     steps:
-      # Checkout code from git
       - checkout
-      - install_awscli   
+      - install_awscli
+      
+      - run:
+          name: Get old stack workflow id
+          command: |
+
       - run:
           name: Get old stack workflow id
           command: |
@@ -518,6 +520,8 @@ jobs:
                 aws cloudformation delete-stack --stack-name "udapeople-backend-<<parameters.workflow_id>>"
                 aws cloudformation delete-stack --stack-name "udapeople-frontend-<<parameters.workflow_id>>"
             fi       
+
+
 
 workflows:
   default:
