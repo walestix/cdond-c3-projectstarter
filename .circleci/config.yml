@@ -497,10 +497,6 @@ jobs:
       - run:
           name: Get old stack workflow id
           command: |
-
-      - run:
-          name: Get old stack workflow id
-          command: |
             # your code here
             export STACKS=($(aws cloudformation list-stacks \
                 --query "StackSummaries[*].StackName" \
@@ -517,8 +513,8 @@ jobs:
             then
               # your code here
                 aws s3 rm "s3://udapeople-${OldWorkflowID}" --recursive
-                aws cloudformation delete-stack --stack-name "udapeople-backend-<<parameters.workflow_id>>"
-                aws cloudformation delete-stack --stack-name "udapeople-frontend-<<parameters.workflow_id>>"
+                aws cloudformation delete-stack --stack-name "udapeople-backend-<parameters.workflow_id>"
+                aws cloudformation delete-stack --stack-name "udapeople-frontend-<parameters.workflow_id>"
             fi       
 
 
