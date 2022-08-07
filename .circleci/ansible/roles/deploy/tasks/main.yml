@@ -1,13 +1,13 @@
 ---
 - name: "Creates bakend app directory"
   file:
-    path: ~/backend-app
+    path: $Home/backend-app
     state: directory
   
 - name: "Unarchive backend files"
   unarchive:
     src: artifact.tar.gz
-    dest: ~/backend-app
+    dest: $Home/backend-app
 
 - name: "Installing Node Dependencies"
   shell: |
