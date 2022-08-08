@@ -430,7 +430,7 @@ jobs:
             echo "${API_URL}"
             if curl -s "${API_URL}/api/status" | grep "ok"
             then
-              exit 0
+              exit 1
             else
               exit 1
             fi
@@ -451,6 +451,9 @@ jobs:
             fi      
 
       # Here's where you will add some code to rollback on failure  
+      # - destroy-environment
+      # - revert-migrations      
+
 
   cloudfront-update:
     docker:
