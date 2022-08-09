@@ -1,9 +1,8 @@
 ---
 - name: "Creates bakend app directory"
-  shell: |
-    mkdir ~/backend-app
-    # path: ~/backend-app
-    # state: directory
+  files: 
+    path: ~/backend-app
+    state: directory
   
 - name: "Unarchive backend files"
   unarchive:
@@ -17,7 +16,7 @@
 
 - name: "Executing Node app with PM2"
   shell: |
-    cd $HOME/backend-app/dist
+    cd ~/backend-app/dist
 
     cd ../
     npm install
