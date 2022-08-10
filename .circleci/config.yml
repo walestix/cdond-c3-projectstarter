@@ -412,48 +412,82 @@ jobs:
       - destroy-environment
       - revert-migrations      
 
+  # smoke-test:
+  #   docker:
+  #     - image: cimg/base:stable      
+  #     # Docker image here that supports AWS CLI
+  #   steps:
+  #     - checkout
+
+  #     - install_nodejs
+  #     - install_awscli
+
+  #     - run:
+  #         name: Backend smoke test.
+  #         command: |
+  #           BACKEND_PUBLIC_IP=$(aws ec2 describe-instances \
+  #             --filters "Name=tag:Name,Values=backend-${CIRCLE_WORKFLOW_ID:0:7}" \
+  #             --query 'Reservations[*].Instances[*].PublicIpAddress' \
+  #             --output text)
+  #           export API_URL=http://${BACKEND_PUBLIC_IP}:3030
+  #           echo ${BACKEND_PUBLIC_IP}
+  #           echo backend-${CIRCLE_WORKFLOW_ID:0:7}
+  #           echo ${API_URL}
+  #           if curl -s $API_URL/api/status | grep "ok"
+  #           then
+  #             exit 1
+  #           else
+  #             exit 1
+  #           fi 
+
+  #     - run:
+  #         name: Frontend smoke test.
+  #         command: |
+          
+            
+  #           FRONT_WEBSITE=http://udapeople-${CIRCLE_WORKFLOW_ID:0:7}.s3-website.${AWS_DEFAULT_REGION}.amazonaws.com            
+  #           echo $URL 
+  #           if curl -s $FRONT_WEBSITE | grep "Welcome"
+  #           then
+  #           # Change this to 0 after the job fails
+  #             exit 1
+  #           else
+  #             exit 1
+  #           fi 
   smoke-test:
     docker:
-      - image: cimg/base:stable      
-      # Docker image here that supports AWS CLI
+      - image: python:3.7-alpine3.11
     steps:
       - checkout
 
       - install_nodejs
       - install_awscli
+      - attach_workspace:
+          at: /root
+      - run:
+          name: Install dependencies
+          command: |
+            apk add --update curl
 
       - run:
           name: Backend smoke test.
           command: |
-            BACKEND_PUBLIC_IP=$(aws ec2 describe-instances \
-              --filters "Name=tag:Name,Values=backend-${CIRCLE_WORKFLOW_ID:0:7}" \
-              --query 'Reservations[*].Instances[*].PublicIpAddress' \
-              --output text)
-            export API_URL=http://${BACKEND_PUBLIC_IP}:3030
-            echo ${BACKEND_PUBLIC_IP}
-            echo backend-${CIRCLE_WORKFLOW_ID:0:7}
-            echo ${API_URL}
-            if curl -s $API_URL/api/status | grep "ok"
-            then
-              exit 1
-            else
-              exit 1
-            fi 
+            ls 
+            pwd
+            export backend_url=$(curl --insecure https://kvdb.io/HDrxD1K2HDTBSq7wPSvQdQ/backend_url)
+            echo $backend_url
+            # curl "$backend_url/api/status" 
 
       - run:
           name: Frontend smoke test.
           command: |
-          
-            
-            FRONT_WEBSITE=http://udapeople-${CIRCLE_WORKFLOW_ID:0:7}.s3-website.${AWS_DEFAULT_REGION}.amazonaws.com            
-            echo $URL 
-            if curl -s $FRONT_WEBSITE | grep "Welcome"
+            URL="http://udapeople-${CIRCLE_WORKFLOW_ID:0:7}.s3-website-us-east-1.amazonaws.com"
+            if curl -s ${URL} | grep "Welcome"
             then
-            # Change this to 0 after the job fails
-              exit 1
+              return 0
             else
-              exit 1
-            fi      
+              return 1
+            fi           
 
       # Here's where you will add some code to rollback on failure  
       # - destroy-environment
