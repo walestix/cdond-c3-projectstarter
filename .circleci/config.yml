@@ -414,12 +414,10 @@ jobs:
 
   smoke-test:
     docker:
-      - image: python:3.7-alpine3.11 
-      # cimg/base:stable      
+      - image:  cimg/base:stable      
       # Docker image here that supports AWS CLI
     steps:
       - checkout
-
       - install_awscli
 
       - run:
@@ -456,8 +454,8 @@ jobs:
             fi 
  
        # Here's where you will add some code to rollback on failure  
-      - destroy-environment
-      - revert-migrations      
+      # - destroy-environment
+      # - revert-migrations      
 
 
   cloudfront-update:
