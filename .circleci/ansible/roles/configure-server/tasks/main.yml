@@ -25,6 +25,3 @@
   copy:
     src: myenv.sh
     dest: /etc/profile.d/
-
-  roles:
-    - configure-server
