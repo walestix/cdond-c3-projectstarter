@@ -1,9 +1,5 @@
 ---
-- name: upgrade packages
-  become: true
-  apt:
-    upgrade: yes
-    update_cache: yes
+
 - name: "Add node.js for source"
   become: true
   shell: |
