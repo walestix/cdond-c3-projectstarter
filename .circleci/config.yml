@@ -254,10 +254,10 @@ jobs:
             - "2a:cc:4a:00:95:43:26:eb:dd:5f:b4:bc:ab:e9:08:ee"
       
       - run:
-        name: Install dependencies
-        command: |
-          sudo apt-get update
-          sudo apt -y install python3 tar gzip
+          name: Install dependencies
+          command: |
+            sudo apt-get update
+            sudo apt -y install python3 tar gzip
 
       - install_awscli
       - install_ansible
@@ -317,7 +317,7 @@ jobs:
     steps:
       - checkout
       - restore_cache:
-        keys: [backend-build]
+          keys: [backend-build]
 
       - install_awscli
       - run:
