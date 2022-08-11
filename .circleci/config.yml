@@ -30,8 +30,8 @@ commands:
             sudo apt install software-properties-common -y
             sudo add-apt-repository --yes --update ppa:ansible/ansible
             sudo apt install ansible -y
-            # python3 -m pip install --user ansible
-            # python3 -m pip install --upgrade --user ansible
+            python3 -m pip install --user ansible
+            python3 -m pip install --upgrade --user ansible
 
 
   destroy-environment:
