@@ -495,7 +495,7 @@ jobs:
             echo Old Workflow ID: $OldWorkflowID
             echo CIRCLE_WORKFLOW_ID "${CIRCLE_WORKFLOW_ID:0:7}"
             echo CIRCLE_WORKFLOW_ID: "${CIRCLE_WORKFLOW_ID:0:7}"
-            
+
             echo "------Delete the stacks that are not the current workflow id-----"
             if [[ "${CIRCLE_WORKFLOW_ID:0:7}" != "${OldWorkflowID}" ]]
             then
@@ -531,8 +531,8 @@ jobs:
             # else
             #   echo "-----------------No stacks to delete-----------------------"
             # fi
-      - destroy_environment:
-          workflow_id: ${CIRCLE_WORKFLOW_ID:0:7}     
+      - destroy-environment
+ 
 
 workflows:
   default:
