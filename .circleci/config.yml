@@ -202,6 +202,12 @@ jobs:
             yum install -y tar gzip
       # Checkout code from git
       - run:
+          name: Obtain initial bucketID for cleanup
+          command: |
+            # Your code here
+            bucketID=$(aws s3api list-buckets --query 'Buckets[].Name' --output text)
+            echo $bucketID >> ~/bucketID.txt
+      - run:
           name: Ensure back-end infrastructure exists
           command: |
             aws cloudformation deploy \
